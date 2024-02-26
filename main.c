@@ -24,4 +24,3 @@ INT32 PurplMain(_In_ PCHAR* arguments, _In_ UINT32 argumentCount)
 
     return 0;
 }
-

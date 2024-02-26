@@ -7,6 +7,9 @@ add_rules(
 set_project("demo")
 set_version("0.0.0", {build = "%Y%m%d%H%M%S"})
 
+set_allowedplats("windows", "linux", "freebsd", "switchhb")
+set_allowedarchs("switchhb|arm64")
+
 includes("support/support.lua")
 setup_support("support", path.join("support", "deps"), true, false, true, true, "config.h.in")
 
