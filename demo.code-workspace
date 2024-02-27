@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"C_Cpp.default.compileCommands": "compile_commands.json",
+		"files.associations": {
+			"detect.h": "c",
+			"hosversion.h": "c",
+			"stat.h": "c",
+			"platform.h": "c"
+		},
+	}
+}

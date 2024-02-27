@@ -11,7 +11,7 @@ set_allowedplats("windows", "linux", "freebsd", "switchhb")
 set_allowedarchs("switchhb|arm64")
 
 includes("support/support.lua")
-setup_support("support", path.join("support", "deps"), true, false, true, true, "config.h.in")
+setup_support("support", path.join("support", "deps"), not is_plat("switchhb"), false, true, true, "config.h.in")
 
 target("demo")
     set_kind("binary")
