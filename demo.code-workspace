@@ -10,7 +10,8 @@
 			"detect.h": "c",
 			"hosversion.h": "c",
 			"stat.h": "c",
-			"platform.h": "c"
+			"platform.h": "c",
+			"egl.h": "c"
 		},
 	}
 }
