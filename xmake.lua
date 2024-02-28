@@ -26,6 +26,7 @@ setup_support(
 
 target("demo")
     set_kind("binary")
+    add_headerfiles("demo/*.h", "assets/shaders/**")
     add_files("demo/*.c")
     add_deps("common", "platform", "util")
     set_default(true)
