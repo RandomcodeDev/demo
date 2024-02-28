@@ -13,11 +13,16 @@
 #include "common/common.h"
 #include "common/filesystem.h"
 
+#include "platform/video.h"
+
 #include "util/mesh.h"
 #include "util/texture.h"
 
 /// @brief Set up the debug callback
 extern VOID GlSetDebugCallback(VOID);
+
+/// @brief Set the viewport to the window size
+extern VOID GlSetViewport(VOID);
 
 /// @brief Clear all three buffers
 extern VOID GlClear(vec4 color, DOUBLE depth, UINT8 stencil);
@@ -49,8 +54,8 @@ typedef struct GL_VERTEX_ATTRIBUTE
 
 static CONST GL_VERTEX_ATTRIBUTE GL_VERTEX_2D_ATTRIBUTES[] = {
     {0, 2, GL_FLOAT, GL_FALSE, sizeof(VERTEX_2D), 0},
-    {1, 2, GL_FLOAT, GL_FALSE, sizeof(VERTEX_2D), 2 * sizeof(FLOAT)},
-    {2, 4, GL_FLOAT, GL_FALSE, sizeof(VERTEX_2D), 4 * sizeof(FLOAT)},
+    {1, 2, GL_FLOAT, GL_TRUE, sizeof(VERTEX_2D), 2 * sizeof(FLOAT)},
+    {2, 4, GL_FLOAT, GL_TRUE, sizeof(VERTEX_2D), 4 * sizeof(FLOAT)},
 };
 
 /// @brief Make a vertex array object

@@ -20,6 +20,14 @@ INT32 PurplMain(_In_ PCHAR *arguments, _In_ UINT32 argumentCount)
 
     GlSetDebugCallback();
 
+    glDisable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
+    glDisable(GL_STENCIL_TEST);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    glStencilFunc(GL_EQUAL, 1, 0xFF);
+    glStencilMask(0xFF);
+
     UINT32 vertexBuffer = GlCreateVertex2dBuffer(
         (VERTEX_2D[]){
             {{0.5, 0.5}, {1.0f, 1.0f}, {1.0f, 1.0f, 1.0f, 1.0f}},
@@ -28,7 +36,7 @@ INT32 PurplMain(_In_ PCHAR *arguments, _In_ UINT32 argumentCount)
             {{-0.5, 0.5}, {0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}},
         },
         4);
-    UINT32 indexBuffer = GlCreateIndexBuffer((ivec3[]){{0, 1, 2}, {1, 2, 3}}, 2);
+    UINT32 indexBuffer = GlCreateIndexBuffer((ivec3[]){{0, 1, 2}, {0, 2, 3}}, 2);
     UINT32 vertexArray = GlCreateVertexArray(vertexBuffer, indexBuffer, GL_VERTEX_2D_ATTRIBUTES,
                                              PURPL_ARRAYSIZE(GL_VERTEX_2D_ATTRIBUTES));
 
@@ -38,10 +46,10 @@ INT32 PurplMain(_In_ PCHAR *arguments, _In_ UINT32 argumentCount)
     GlSetUniform(shaderProgram, "textureSampler", (UINT32[]){0}, GL_INT, 1);
 
     mat4 projectionMatrix = {0};
-    UINT32 Width = 0;
-    UINT32 Height = 0;
-    VidGetSize(&Width, &Height);
-    glm_ortho(0.0f, Width, Height, 0.0f, -1.0f, 1.0f, projectionMatrix);
+    UINT32 width = 0;
+    UINT32 height = 0;
+    VidGetSize(&width, &height);
+    glm_ortho(0.0f, width, height, 0.0f, -1.0f, 1.0f, projectionMatrix);
 
     mat4 modelMatrix = {0};
     glm_mat4_identity(modelMatrix);
@@ -56,7 +64,8 @@ INT32 PurplMain(_In_ PCHAR *arguments, _In_ UINT32 argumentCount)
 
     while (VidUpdate())
     {
-        GlClear((vec4){0.0f, 0.0f, 0.0f, 0.0f}, 0.0f, 0);
+        GlSetViewport();
+        GlClear((vec4){1.0f, 1.0f, 1.0f, 1.0f}, 0.0, 0);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture);
         glUseProgram(shaderProgram);
@@ -64,7 +73,7 @@ INT32 PurplMain(_In_ PCHAR *arguments, _In_ UINT32 argumentCount)
         glDrawElements(GL_TRIANGLES, 2 * 3, GL_UNSIGNED_INT, NULL);
     }
 
-    glDeleteTextures(1, &texture);
+    //glDeleteTextures(1, &texture);
     glDeleteProgram(shaderProgram);
     glDeleteVertexArrays(1, &vertexArray);
     glDeleteBuffers(4, (UINT32[]){vertexBuffer, indexBuffer, globalUniformBuffer, objectUniformBuffer});

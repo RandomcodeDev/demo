@@ -30,8 +30,6 @@ VERTEX_OUTPUT VertexMain(VERTEX_INPUT input)
 {
     VERTEX_OUTPUT output;
 
-    const float3 Lightposition = float3(0.0, 0.0, 8.0);
-
     float4x4 MP = mul(projection, model);
     output.position = mul(float4(input.position, 0.0, 1.0), MP);
     output.textureCoordinate = input.textureCoordinate;

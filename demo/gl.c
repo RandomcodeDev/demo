@@ -71,6 +71,14 @@ VOID GlSetDebugCallback(VOID)
 #endif
 }
 
+VOID GlSetViewport(VOID)
+{
+    UINT32 width = 0;
+    UINT32 height = 0;
+    VidGetSize(&width, &height);
+    glViewport(0, 0, width, height);
+}
+
 VOID GlClear(vec4 color, DOUBLE depth, UINT8 stencil)
 {
     glClearColor(color[0], color[1], color[2], color[3]);
@@ -263,7 +271,7 @@ VOID GlSetUniform(UINT32 shader, PCSTR name, PVOID value, UINT32 type, UINT32 co
     glUseProgram(shader);
 
     INT32 uniformLocation = glGetUniformLocation(shader, name);
-    if (uniformLocation < 0 || uniformLocation == GL_INVALID_VALUE)
+    if (uniformLocation == GL_INVALID_VALUE)
     {
         LogError("Failed to set uniform %s", name);
         return;
@@ -292,7 +300,7 @@ VOID GlSetMatrixUniform(UINT32 shader, PCSTR name, mat4 value)
     glUseProgram(shader);
 
     INT32 uniformLocation = glGetUniformLocation(shader, name);
-    if (uniformLocation < 0 || uniformLocation == GL_INVALID_VALUE)
+    if (uniformLocation == GL_INVALID_VALUE)
     {
         LogError("Failed to set uniform %s", name);
         return;
