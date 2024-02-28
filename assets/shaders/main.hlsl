@@ -7,7 +7,7 @@ cbuffer UBO : register(b0)
     float4x4 projection;
 }
 
-cbuffer OBJECT_UBO : register(b0)
+cbuffer OBJECT_UBO : register(b1)
 {
     float4x4 model;
 }
@@ -32,7 +32,7 @@ VERTEX_OUTPUT VertexMain(VERTEX_INPUT input)
 
     const float3 Lightposition = float3(0.0, 0.0, 8.0);
 
-    float4x4 MP = mul(model, projection);
+    float4x4 MP = mul(projection, model);
     output.position = mul(float4(input.position, 0.0, 1.0), MP);
     output.textureCoordinate = input.textureCoordinate;
     output.colour = input.colour;

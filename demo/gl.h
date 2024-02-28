@@ -48,9 +48,9 @@ typedef struct GL_VERTEX_ATTRIBUTE
 } GL_VERTEX_ATTRIBUTE, *PGL_VERTEX_ATTRIBUTE;
 
 static CONST GL_VERTEX_ATTRIBUTE GL_VERTEX_2D_ATTRIBUTES[] = {
-    {0, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(FLOAT), 0},
-    {1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(FLOAT), 2 * sizeof(FLOAT)},
-    {2, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(FLOAT), 4 * sizeof(FLOAT)},
+    {0, 2, GL_FLOAT, GL_FALSE, sizeof(VERTEX_2D), 0},
+    {1, 2, GL_FLOAT, GL_FALSE, sizeof(VERTEX_2D), 2 * sizeof(FLOAT)},
+    {2, 4, GL_FLOAT, GL_FALSE, sizeof(VERTEX_2D), 4 * sizeof(FLOAT)},
 };
 
 /// @brief Make a vertex array object
@@ -69,8 +69,8 @@ extern VOID GlSetMatrixUniform(UINT32 shader, PCSTR name, mat4 value);
 /// @brief Uniform data
 typedef struct GL_UNIFORM_DATA
 {
-    mat4 model;
     mat4 projection;
+    mat4 model;
 } GL_UNIFORM_DATA, *PGL_UNIFORM_DATA;
 
 /// @brief Create a uniform buffer

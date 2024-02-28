@@ -91,6 +91,7 @@ UINT32 GlCreateVertex2dBuffer(PVERTEX_2D vertices, UINT32 vertexCount)
 
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
     glBufferData(GL_ARRAY_BUFFER, vertexCount * sizeof(VERTEX_2D), vertices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     glObjectLabel(GL_BUFFER, buffer, 13, "Vertex buffer");
 
@@ -109,6 +110,7 @@ UINT32 GlCreateIndexBuffer(ivec3 *indices, UINT32 indexCount)
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, buffer);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexCount * sizeof(ivec3), indices, GL_STATIC_DRAW);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     glObjectLabel(GL_BUFFER, buffer, 12, "Index buffer");
 
@@ -137,6 +139,8 @@ UINT32 GlCreateVertexArray(UINT32 vertexBuffer, UINT32 indexBuffer, PGL_VERTEX_A
                               (PVOID)(UINT_PTR)vertexAttributes[i].offset);
         glEnableVertexAttribArray(vertexAttributes[i].index);
     }
+
+    glBindVertexArray(0);
 
     return vertexArray;
 }
@@ -310,6 +314,7 @@ UINT32 GlCreateUniformBuffer(UINT32 size)
 
     glBindBuffer(GL_UNIFORM_BUFFER, buffer);
     glBufferData(GL_UNIFORM_BUFFER, size, NULL, GL_STATIC_DRAW);
+    glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
     glObjectLabel(GL_BUFFER, buffer, 14, "Uniform buffer");
 
@@ -318,7 +323,7 @@ UINT32 GlCreateUniformBuffer(UINT32 size)
 
 UINT32 GlWriteUniformBuffer(UINT32 uniformBuffer, UINT32 offset, PVOID data, UINT32 size)
 {
-    glBindBufferRange(GL_UNIFORM_BUFFER, 0, uniformBuffer, offset, size);
+    glBindBufferBase(GL_UNIFORM_BUFFER, 0, uniformBuffer);
     glBufferSubData(GL_UNIFORM_BUFFER, offset, size, data);
 }
 
